@@ -1,1 +1,4 @@
 test_examples/
+test_frames/
+.ipynb_checkpoints/
+models/
