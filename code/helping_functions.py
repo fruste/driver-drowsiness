@@ -5,10 +5,13 @@ from scipy import stats
 import matplotlib.pyplot as plt
 from IPython.display import Markdown, display
 
-def load_blinks(subject, cond, num_parts):
+def load_blinks(subject, cond):
     path = '../eye_openess_features/' + subject + '/' + cond + '/'
     all_status_rates = []
     all_wrong_frames = []
+
+    lst = os.listdir(path)
+    num_parts = int(len(lst) / 2)
     for num in range(1, num_parts+1):
         status_rates = list(np.load(path + "status_rates_part" + str(num) + ".npy"))
         wrong_frames = list(np.load(path + "wrong_frames_part" + str(num) + ".npy"))
@@ -84,8 +87,3 @@ def run_analysis(status_rates, wrong_frames, treshhold, segment_length):
     #print("Mean blink count per segment", np.mean(blink_counts))
     #print("Mean blink duration per segment", np.mean(average_durs))
     return blink_counts, average_durs
-
-
-def get_subject_parts(subject):
-    parts = [(4,3), (0,0), (2,2), (1,1), (0,0), (1,1), (1,1), (0,0), (2,1), (1,2), (1,1), (1,1), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (0,0), (1,1)]
-    return parts[subject - 1]
